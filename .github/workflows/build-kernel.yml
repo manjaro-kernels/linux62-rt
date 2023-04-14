@@ -7,7 +7,14 @@ jobs:
   build-kernel:
     runs-on: ubuntu-20.04
     steps:
-      - uses: manjaro-kernels/kernel-action@master
+      - name: Maximize build space
+        uses: easimon/maximize-build-space@master
+        with:
+          root-reserve-mb: 512
+          swap-size-mb: 1024
+          remove-dotnet: 'true'
+      - name: Build Kernel
+        uses: manjaro-kernels/kernel-action@master
         with:
           gitlab-pw: ${{ secrets.gitlab_server_user }}
           build-mirror: ${{ secrets.BUILD_MIRROR }}
